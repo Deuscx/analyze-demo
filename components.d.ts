@@ -8,10 +8,19 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AnalyzeCard: typeof import('./src/components/AnalyzeCard.vue')['default']
+    FreqDomainChart: typeof import('./src/components/FreqDomainChart.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    TheCounter: typeof import('./src/components/TheCounter.vue')['default']
-    TheFooter: typeof import('./src/components/TheFooter.vue')['default']
-    TheInput: typeof import('./src/components/TheInput.vue')['default']
+    TButton: typeof import('tdesign-vue-next')['Button']
+    TCheckbox: typeof import('tdesign-vue-next')['Checkbox']
+    TCheckboxGroup: typeof import('tdesign-vue-next')['CheckboxGroup']
+    TEmpty: typeof import('tdesign-vue-next')['Empty']
+    TForm: typeof import('tdesign-vue-next')['Form']
+    TFormItem: typeof import('tdesign-vue-next')['FormItem']
+    TimeDomainChart: typeof import('./src/components/TimeDomainChart.vue')['default']
+    TimeFreqChart: typeof import('./src/components/TimeFreqChart.vue')['default']
+    TInput: typeof import('tdesign-vue-next')['Input']
+    TSpace: typeof import('tdesign-vue-next')['Space']
   }
 }
