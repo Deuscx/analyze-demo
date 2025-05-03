@@ -1,6 +1,15 @@
 export interface TimeFrequencyData {
+  /**
+   * 时间
+   */
   time: number
+  /**
+   * 频率
+   */
   frequency: number
+  /**
+   * 幅值
+   */
   amplitude: number
 }
 
@@ -41,6 +50,12 @@ export interface AnalysisData {
 
 // 样本数据
 export interface SampleData {
+  /**
+   * 时间频率数据
+   */
   data: TimeFrequencyData[]
+  /**
+   * 分析数据
+   */
   analysis: AnalysisData
 }

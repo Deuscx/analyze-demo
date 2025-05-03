@@ -9,12 +9,15 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AnalyzeCard: typeof import('./src/components/AnalyzeCard.vue')['default']
+    ConfusionChart: typeof import('./src/components/ConfusionChart.vue')['default']
     FreqDomainChart: typeof import('./src/components/FreqDomainChart.vue')['default']
+    LabelChart: typeof import('./src/components/LabelChart.vue')['default']
+    ModuleOne: typeof import('./src/components/modules/ModuleOne.vue')['default']
+    ModuleTwo: typeof import('./src/components/modules/ModuleTwo.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    ScatterChart: typeof import('./src/components/ScatterChart.vue')['default']
     TButton: typeof import('tdesign-vue-next')['Button']
-    TCheckbox: typeof import('tdesign-vue-next')['Checkbox']
-    TCheckboxGroup: typeof import('tdesign-vue-next')['CheckboxGroup']
     TEmpty: typeof import('tdesign-vue-next')['Empty']
     TForm: typeof import('tdesign-vue-next')['Form']
     TFormItem: typeof import('tdesign-vue-next')['FormItem']
@@ -22,5 +25,8 @@ declare module 'vue' {
     TimeFreqChart: typeof import('./src/components/TimeFreqChart.vue')['default']
     TInput: typeof import('tdesign-vue-next')['Input']
     TSpace: typeof import('tdesign-vue-next')['Space']
+    TTabPanel: typeof import('tdesign-vue-next')['TabPanel']
+    TTabs: typeof import('tdesign-vue-next')['Tabs']
+    TypeLabelInput: typeof import('./src/components/form/TypeLabelInput.vue')['default']
   }
 }
