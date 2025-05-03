@@ -59,3 +59,12 @@ export interface SampleData {
    */
   analysis: AnalysisData
 }
+
+export interface FrequencySample {
+  frequency_domain: {
+    frequencies: number[]
+    magnitude: number[]
+  }
+  label: number
+  sample_id: number
+}

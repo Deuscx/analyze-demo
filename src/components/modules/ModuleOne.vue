@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import type { AnalysisData, TimeFrequencyData } from '~/types'
+import type { FrequencySample, TimeFrequencyData } from '~/types'
 import { LoadingPlugin } from 'tdesign-vue-next'
-import { generateTimeFrequencyData, getTimeDatas } from '~/composables/data'
+import { generateTimeFrequencyData, getFrequencyData, getTimeDatas } from '~/composables/data'
 import { delay } from '~/utils'
 
 const data = ref<TimeFrequencyData[]>([])
-const analysis = ref<AnalysisData>({} as any)
 const selectedIndex = ref(0)
 const dataList = ref<any[]>([])
-
+const frequencyDataList = ref<FrequencySample[]>([])
+const selectedFrequencyData = computed(() => {
+  return frequencyDataList.value[selectedIndex.value]
+})
 const selectedData = computed(() => {
   return dataList.value[selectedIndex.value]
 })
@@ -22,9 +24,10 @@ async function onSubmit() {
   LoadingPlugin(false)
   const sampleData = generateTimeFrequencyData()
   const timeData = getTimeDatas()
+  const data2 = getFrequencyData()
+  frequencyDataList.value = data2
   dataList.value = timeData
   data.value = sampleData.data
-  analysis.value = sampleData.analysis
 }
 </script>
 
@@ -74,7 +77,7 @@ async function onSubmit() {
         <AnalyzeCard :data="selectedData.statistics" />
       </div>
       <div>
-        <FreqDomainChart :data="data" />
+        <FreqDomainChart :data="selectedFrequencyData" />
       </div>
       <div>
         <TimeFreqChart :data="data" />
