@@ -1,18 +1,22 @@
 <script setup lang="ts">
-import type { FrequencySample, TimeFrequencyData } from '~/types'
+import type { FrequencySample } from '~/types'
 import { LoadingPlugin } from 'tdesign-vue-next'
-import { generateTimeFrequencyData, getFrequencyData, getTimeDatas } from '~/composables/data'
+import { getFrequencyData, getTimeDatas, getTimeFrequencyData } from '~/composables/data'
 import { delay } from '~/utils'
 
-const data = ref<TimeFrequencyData[]>([])
 const selectedIndex = ref(0)
 const dataList = ref<any[]>([])
 const frequencyDataList = ref<FrequencySample[]>([])
+const timeFrequencyDataList = ref<any[]>([])
+
 const selectedFrequencyData = computed(() => {
   return frequencyDataList.value[selectedIndex.value]
 })
 const selectedData = computed(() => {
   return dataList.value[selectedIndex.value]
+})
+const selectedTimeFrequencyData = computed(() => {
+  return timeFrequencyDataList.value[selectedIndex.value]
 })
 
 const totalLength = computed(() => {
@@ -22,12 +26,12 @@ async function onSubmit() {
   LoadingPlugin(true)
   await delay(Math.random() * 1000)
   LoadingPlugin(false)
-  const sampleData = generateTimeFrequencyData()
   const timeData = getTimeDatas()
   const data2 = getFrequencyData()
+  const data3 = getTimeFrequencyData()
   frequencyDataList.value = data2
   dataList.value = timeData
-  data.value = sampleData.data
+  timeFrequencyDataList.value = data3
 }
 </script>
 
@@ -55,7 +59,7 @@ async function onSubmit() {
       </t-form-item>
     </t-form>
   </header>
-  <section v-if="data.length">
+  <section v-if="dataList.length">
     <div class="mt-2 flex gap-2 items-center justify-between">
       <div class="text-zinc flex gap-2 whitespace-nowrap items-center">
         数据读取完毕，一共有 {{ totalLength }}样本
@@ -80,7 +84,7 @@ async function onSubmit() {
         <FreqDomainChart :data="selectedFrequencyData" />
       </div>
       <div>
-        <TimeFreqChart :data="data" />
+        <TimeFreqChart :data="selectedTimeFrequencyData" />
       </div>
     </div>
   </section>

@@ -68,3 +68,11 @@ export interface FrequencySample {
   label: number
   sample_id: number
 }
+
+export interface CWTSample {
+  sample_id: number
+  time_axis: number[]
+  frequency_axis: number[]
+  cwt_coefficients: Array<number[]>
+  label: number
+}

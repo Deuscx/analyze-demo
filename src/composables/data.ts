@@ -1,4 +1,5 @@
 import type { SampleData } from '~/types'
+import cwt from '~/data/cwt.json'
 import frequency from '~/data/frequency.json'
 import timeData from '~/data/time.json'
 
@@ -8,6 +9,10 @@ export function getTimeDatas() {
 
 export function getFrequencyData() {
   return frequency
+}
+
+export function getTimeFrequencyData() {
+  return cwt
 }
 
 export function generateTimeFrequencyData() {
