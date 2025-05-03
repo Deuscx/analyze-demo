@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import type { TimeFrequencyData } from '~/types'
 import { Chart } from '@antv/g2'
-import { setChartConfig } from '~/composables/chart'
 
 const props = defineProps<{
-  data: TimeFrequencyData[]
+  data: any
 }>()
 
 const chartRef = ref(null)
@@ -17,12 +15,48 @@ onMounted(() => {
   setValue()
 })
 
+function transformData(data: any) {
+  const value = data.value
+  const len = value.time.length
+  const newData = Array.from({ length: len }, (_, i) => ({
+    time: value.time[i],
+    magnitude: value.magnitude[i],
+  }))
+  return newData
+}
+
+function setNewConfig(chart: Chart, data: any) {
+  if (!data || !chart)
+    return
+
+  chart
+    .line()
+    .data({
+      type: 'custom',
+      value: data,
+      callback: item => transformData(item),
+    })
+    .encode('x', 'time')
+    .encode('y', 'magnitude')
+    .transform({
+      type: 'sample',
+      //   thresholds: 200,
+      //   strategy: 'max',
+    })
+
+  chart.render()
+}
+
 function setValue() {
-  setChartConfig(chart.value!, props.data, 'time', 'amplitude')
+  setNewConfig(chart.value!, props.data)
 }
 
 watch(() => props.data, () => {
-  chart.value!.changeData(props.data)
+  chart.value!.changeData({
+    type: 'custom',
+    value: props.data,
+    callback: item => transformData(item),
+  })
 })
 </script>
 

@@ -1,17 +1,28 @@
 <script setup lang="ts">
 import type { AnalysisData, TimeFrequencyData } from '~/types'
 import { LoadingPlugin } from 'tdesign-vue-next'
-import { generateTimeFrequencyData } from '~/composables/data'
+import { generateTimeFrequencyData, getTimeDatas } from '~/composables/data'
 import { delay } from '~/utils'
 
 const data = ref<TimeFrequencyData[]>([])
 const analysis = ref<AnalysisData>({} as any)
+const selectedIndex = ref(0)
+const dataList = ref<any[]>([])
 
+const selectedData = computed(() => {
+  return dataList.value[selectedIndex.value]
+})
+
+const totalLength = computed(() => {
+  return dataList.value.length
+})
 async function onSubmit() {
   LoadingPlugin(true)
   await delay(Math.random() * 1000)
   LoadingPlugin(false)
   const sampleData = generateTimeFrequencyData()
+  const timeData = getTimeDatas()
+  dataList.value = timeData
   data.value = sampleData.data
   analysis.value = sampleData.analysis
 }
@@ -42,12 +53,25 @@ async function onSubmit() {
     </t-form>
   </header>
   <section v-if="data.length">
+    <div class="mt-2 flex gap-2 items-center justify-between">
+      <div class="text-zinc flex gap-2 whitespace-nowrap items-center">
+        数据读取完毕，一共有 {{ totalLength }}样本
+      </div>
+      <t-select
+        v-model="selectedIndex"
+        auto-width
+        :options="dataList.map((item, index) => ({
+          label: `第${index + 1}样本`,
+          value: index,
+        }))"
+      />
+    </div>
     <div class="gap-4 grid grid-cols-2">
       <div>
-        <TimeDomainChart :data="data" />
+        <TimeDomainChart :data="selectedData" />
       </div>
       <div>
-        <AnalyzeCard :data="analysis" />
+        <AnalyzeCard :data="selectedData.statistics" />
       </div>
       <div>
         <FreqDomainChart :data="data" />

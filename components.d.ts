@@ -24,6 +24,7 @@ declare module 'vue' {
     TimeDomainChart: typeof import('./src/components/TimeDomainChart.vue')['default']
     TimeFreqChart: typeof import('./src/components/TimeFreqChart.vue')['default']
     TInput: typeof import('tdesign-vue-next')['Input']
+    TSelect: typeof import('tdesign-vue-next')['Select']
     TSpace: typeof import('tdesign-vue-next')['Space']
     TTabPanel: typeof import('tdesign-vue-next')['TabPanel']
     TTabs: typeof import('tdesign-vue-next')['Tabs']

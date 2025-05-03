@@ -5,15 +5,14 @@ defineProps<{
   data: AnalysisData
 }>()
 
+// mean：均值；rms：均方根值；std：标准差；kurtosis：峰度；skew：偏度；peak：峰值
 const dataLabels = {
-  avg: '均值',
-  peak: '峰值',
-  rms: '均方根',
-  margin: '裕度',
+  mean: '均值',
+  rms: '均方根值',
   std: '标准差',
-  variance: '方差',
-  kurtosis: '峭度',
-  skewness: '偏度',
+  kurtosis: '峰度',
+  skew: '偏度',
+  peak: '峰值',
 }
 </script>
 

@@ -1,10 +1,19 @@
 import type { SampleData } from '~/types'
+import frequency from '~/data/frequency.json'
+import timeData from '~/data/time.json'
+
+export function getTimeDatas() {
+  return timeData
+}
+
+export function getFrequencyData() {
+  return frequency
+}
 
 export function generateTimeFrequencyData() {
   const timeSteps = 1024
   const frequencySteps = 30
   const data = []
-
   for (let t = 0; t < timeSteps; t++) {
     const f = Math.random() * frequencySteps
     // 简单示例，幅值根据时间和频率计算
