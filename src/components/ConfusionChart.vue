@@ -1,29 +1,62 @@
 <script setup lang="ts">
 import { Chart } from '@antv/g2'
 
+const props = defineProps<{
+  data: any[][]
+}>()
 const chartRef = ref(null)
+const chart = shallowRef<Chart | null>(null)
+function transformData(item: any) {
+  const data = item.value
+  const result = []
+  for (let i = 0; i < data.length; i++) {
+    for (let j = 0; j < data[i].length; j++) {
+      result.push({
+        x: i,
+        y: j,
+        value: data[i][j],
+      })
+    }
+  }
+  return result
+}
 
 onMounted(() => {
-  const chart = new Chart({
+  chart.value = new Chart({
     container: chartRef.value!,
     height: 300,
   })
 
-  chart
-    .cell()
+  chart.value!
     .data({
-      type: 'fetch',
-      value: 'https://assets.antv.antgroup.com/g2/seattle-weather.json',
+      type: 'custom',
+      value: props.data,
+      callback: transformData,
     })
-    .transform({ type: 'group', color: 'max' })
-    .encode('x', d => new Date(d.date).getUTCDate())
-    .encode('y', d => new Date(d.date).getUTCMonth())
-    .encode('color', 'temp_max')
-    .style('inset', 0.5)
+    .axis('y', { labelAutoRotate: false })
+    .axis('x', {
+      position: 'top',
+    })
+    .cell()
     .scale('color', { palette: 'gnBu' })
-    .animate('enter', { type: 'fadeIn' })
+    .encode('x', 'x')
+    .encode('y', 'y')
+    .encode('color', 'value')
+    .style('stroke', '#000')
+    .label({
+      text: 'value',
+      fontWeight: 'bold',
+      offset: 14,
+    })
+  chart.value.render()
+})
 
-  chart.render()
+watch(() => props.data, () => {
+  chart.value!.changeData({
+    type: 'custom',
+    value: props.data,
+    callback: transformData,
+  })
 })
 </script>
 

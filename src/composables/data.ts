@@ -1,4 +1,5 @@
 import type { SampleData } from '~/types'
+import cmData from '~/data/all_models_cm.json'
 import cwt from '~/data/cwt.json'
 import frequency from '~/data/frequency.json'
 import timeData from '~/data/time.json'
@@ -13,6 +14,10 @@ export function getFrequencyData() {
 
 export function getTimeFrequencyData() {
   return cwt
+}
+
+export function getAllCmData() {
+  return cmData
 }
 
 export function generateTimeFrequencyData() {

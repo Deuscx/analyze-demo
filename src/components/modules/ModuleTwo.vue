@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { LoadingPlugin } from 'tdesign-vue-next'
+import { getAllCmData } from '~/composables/data'
 import { delay } from '~/utils'
 
 async function onSubmit() {
@@ -7,6 +8,15 @@ async function onSubmit() {
   await delay(Math.random() * 1000)
   LoadingPlugin(false)
 }
+
+const modelList = ['SVM', 'CNN', 'KNN', 'ViT']
+const modelOptions = modelList.map(item => ({
+  label: item,
+  value: item,
+}))
+const selectedModel = ref('SVM')
+const groupModelData = ref<Record<string, any>>({})
+const selectedModelCMData = computed(() => groupModelData.value[selectedModel.value])
 
 const formData = reactive<any>({
   frequency: '',
@@ -26,6 +36,14 @@ function addTagAlias() {
 function removeTagAlias(index: number) {
   formData.tagAlias.splice(index, 1)
 }
+
+onMounted(() => {
+  const data1 = getAllCmData()
+  groupModelData.value = data1.reduce<Record<string, any>>((acc, item) => {
+    acc[item.model] = item.cm
+    return acc
+  }, {})
+})
 </script>
 
 <template>
@@ -67,9 +85,15 @@ function removeTagAlias(index: number) {
         </t-form-item>
       </t-form>
     </header>
-    <section class="gap-4 grid grid-cols-2">
+    <div class="flex gap-2 items-center">
+      <div class="flex gap-2 items-center">
+        <span class="text-sm whitespace-nowrap">模型：</span>
+        <t-select v-model="selectedModel" :options="modelOptions" auto-width />
+      </div>
+    </div>
+    <section v-if="selectedModelCMData" class="gap-4 grid grid-cols-2">
       <div>
-        <ConfusionChart />
+        <ConfusionChart :data="selectedModelCMData" />
       </div>
       <div>
         <ScatterChart />
