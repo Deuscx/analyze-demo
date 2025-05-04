@@ -34,7 +34,7 @@ onMounted(() => {
       value: props.data,
       callback: transformData,
     })
-    // .transform({ type: 'sortX', channel: 'x' })
+    .transform({ type: 'sortX', channel: 'x' })
     // .transform({ type: 'jitterX' })
     .encode('x', 'x')
     .encode('y', 'y')

@@ -28,6 +28,7 @@ declare module 'vue' {
     TSpace: typeof import('tdesign-vue-next')['Space']
     TTabPanel: typeof import('tdesign-vue-next')['TabPanel']
     TTabs: typeof import('tdesign-vue-next')['Tabs']
+    TUpload: typeof import('tdesign-vue-next')['Upload']
     TypeLabelInput: typeof import('./src/components/form/TypeLabelInput.vue')['default']
   }
 }

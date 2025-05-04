@@ -3,7 +3,7 @@ import { LoadingPlugin } from 'tdesign-vue-next'
 import { getAllCmData, getSneData } from '~/composables/data'
 import { delay } from '~/utils'
 
-const modelList = ['SVM', 'CNN', 'KNN', 'ViT']
+const modelList = ['SVM', 'CNN', 'KNN', 'ViT', 'PViT', 'MSDiViT']
 const modelOptions = modelList.map(item => ({
   label: item,
   value: item,
@@ -55,6 +55,13 @@ async function onSubmit() {
   <div>
     <header>
       <div class="mb-1 ml-auto flex gap-1 w-full justify-end">
+        <t-upload
+          :show-upload-progress="false"
+        >
+          <t-button theme="default" variant="outline">
+            上传数据
+          </t-button>
+        </t-upload>
         <t-button theme="primary" @click="addTagAlias">
           添加故障类型
         </t-button>
@@ -77,15 +84,17 @@ async function onSubmit() {
         </t-form-item>
 
         <t-form-item name="tagAlias" label="故障类型">
-          <div v-for="(item, index) in formData.tagAlias" :key="item" class="flex gap-1 items-center">
-            <!-- 重点阅读：数组里面，注意 name 定义，用于区分不同的字段 -->
-            <!-- 重点阅读：name 表示当前字段在 formData 中的路径，ruleName 表示当前字段在 rules 中的名称 -->
-            <TypeLabelInput v-model:value="formData.tagAlias[index]" />
-            <t-button shape="circle" variant="outline" @click="removeTagAlias(index)">
-              <template #icon>
-                <div class="i-carbon-close" />
-              </template>
-            </t-button>
+          <div class="flex flex-wrap gap-1">
+            <div v-for="(item, index) in formData.tagAlias" :key="item" class="inline-flex gap-1 items-center">
+              <!-- 重点阅读：数组里面，注意 name 定义，用于区分不同的字段 -->
+              <!-- 重点阅读：name 表示当前字段在 formData 中的路径，ruleName 表示当前字段在 rules 中的名称 -->
+              <TypeLabelInput v-model:value="formData.tagAlias[index]" />
+              <t-button shape="circle" variant="outline" @click="removeTagAlias(index)">
+                <template #icon>
+                  <div class="i-carbon-close" />
+                </template>
+              </t-button>
+            </div>
           </div>
         </t-form-item>
       </t-form>

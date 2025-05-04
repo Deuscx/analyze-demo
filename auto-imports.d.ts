@@ -37,9 +37,11 @@ declare global {
   const effectScope: typeof import('vue')['effectScope']
   const extendRef: typeof import('@vueuse/core')['extendRef']
   const generateTimeFrequencyData: typeof import('./src/composables/data')['generateTimeFrequencyData']
+  const getAllCmData: typeof import('./src/composables/data')['getAllCmData']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
   const getFrequencyData: typeof import('./src/composables/data')['getFrequencyData']
+  const getSneData: typeof import('./src/composables/data')['getSneData']
   const getTimeDatas: typeof import('./src/composables/data')['getTimeDatas']
   const getTimeFrequencyData: typeof import('./src/composables/data')['getTimeFrequencyData']
   const h: typeof import('vue')['h']
@@ -345,9 +347,11 @@ declare module 'vue' {
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
     readonly generateTimeFrequencyData: UnwrapRef<typeof import('./src/composables/data')['generateTimeFrequencyData']>
+    readonly getAllCmData: UnwrapRef<typeof import('./src/composables/data')['getAllCmData']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
     readonly getFrequencyData: UnwrapRef<typeof import('./src/composables/data')['getFrequencyData']>
+    readonly getSneData: UnwrapRef<typeof import('./src/composables/data')['getSneData']>
     readonly getTimeDatas: UnwrapRef<typeof import('./src/composables/data')['getTimeDatas']>
     readonly getTimeFrequencyData: UnwrapRef<typeof import('./src/composables/data')['getTimeFrequencyData']>
     readonly h: UnwrapRef<typeof import('vue')['h']>

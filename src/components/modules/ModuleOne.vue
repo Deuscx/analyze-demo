@@ -52,6 +52,13 @@ async function onSubmit() {
       </t-form-item>
       <t-form-item>
         <t-space size="small">
+          <t-upload
+            :show-upload-progress="false"
+          >
+            <t-button theme="default" variant="outline">
+              上传数据
+            </t-button>
+          </t-upload>
           <t-button theme="primary" type="submit">
             提交
           </t-button>
