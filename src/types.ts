@@ -76,3 +76,9 @@ export interface CWTSample {
   cwt_coefficients: Array<number[]>
   label: number
 }
+
+export interface SNESample {
+  'model': string
+  '2D_feats': Array<number[]>
+  'label': number[]
+}

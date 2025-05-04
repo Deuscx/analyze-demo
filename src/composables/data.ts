@@ -1,5 +1,6 @@
 import type { SampleData } from '~/types'
 import cmData from '~/data/all_models_cm.json'
+import sneData from '~/data/all_models_sne.json'
 import cwt from '~/data/cwt.json'
 import frequency from '~/data/frequency.json'
 import timeData from '~/data/time.json'
@@ -18,6 +19,10 @@ export function getTimeFrequencyData() {
 
 export function getAllCmData() {
   return cmData
+}
+
+export function getSneData() {
+  return sneData
 }
 
 export function generateTimeFrequencyData() {

@@ -1,13 +1,7 @@
 <script setup lang="ts">
 import { LoadingPlugin } from 'tdesign-vue-next'
-import { getAllCmData } from '~/composables/data'
+import { getAllCmData, getSneData } from '~/composables/data'
 import { delay } from '~/utils'
-
-async function onSubmit() {
-  LoadingPlugin(true)
-  await delay(Math.random() * 1000)
-  LoadingPlugin(false)
-}
 
 const modelList = ['SVM', 'CNN', 'KNN', 'ViT']
 const modelOptions = modelList.map(item => ({
@@ -18,6 +12,8 @@ const selectedModel = ref('SVM')
 const groupModelData = ref<Record<string, any>>({})
 const selectedModelCMData = computed(() => groupModelData.value[selectedModel.value])
 
+const groupModelSneData = ref<Record<string, any>>({})
+const selectedModelSneData = computed(() => groupModelSneData.value[selectedModel.value])
 const formData = reactive<any>({
   frequency: '',
   speed: '',
@@ -37,13 +33,22 @@ function removeTagAlias(index: number) {
   formData.tagAlias.splice(index, 1)
 }
 
-onMounted(() => {
+async function onSubmit() {
+  LoadingPlugin(true)
+  await delay(Math.random() * 1000)
+  LoadingPlugin(false)
   const data1 = getAllCmData()
   groupModelData.value = data1.reduce<Record<string, any>>((acc, item) => {
     acc[item.model] = item.cm
     return acc
   }, {})
-})
+
+  const data2 = getSneData()
+  groupModelSneData.value = data2.reduce<Record<string, any>>((acc, item) => {
+    acc[item.model] = item
+    return acc
+  }, {})
+}
 </script>
 
 <template>
@@ -96,12 +101,15 @@ onMounted(() => {
         <ConfusionChart :data="selectedModelCMData" />
       </div>
       <div>
-        <ScatterChart />
+        <ScatterChart :data="selectedModelSneData" />
       </div>
       <div>
-        <LabelChart />
+        <LabelChart :model="selectedModel" />
       </div>
     </section>
+    <div v-else class="mt-4 flex min-h-80vh items-center justify-center">
+      <t-empty />
+    </div>
   </div>
 </template>
 

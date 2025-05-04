@@ -1,8 +1,26 @@
 <script setup lang="ts">
 import { Chart } from '@antv/g2'
 
+const props = defineProps<{
+  model: string
+}>()
 const chartRef = ref(null)
+const chart = shallowRef<Chart>()
 
+const data1 = [0, 0, 1, 1, 2, 2, 3, 3, 4, 7, 5, 5, 6, 6, 4, 7, 8, 8, 9, 9].map((value, index) => {
+  return {
+    index,
+    value,
+  }
+})
+
+function getDataByType() {
+  if (['SVM', 'KNN'].includes(props.model)) {
+    return data1
+  }
+
+  return generateLabelData()
+}
 function generateLabelData() {
   const count = 10
   const per = 2
@@ -17,7 +35,7 @@ function generateLabelData() {
 }
 
 onMounted(() => {
-  const chart = new Chart({
+  chart.value = new Chart({
     container: chartRef.value!,
     autoFit: true,
     axis: {
@@ -26,11 +44,11 @@ onMounted(() => {
     },
   })
 
-  chart
+  chart.value!
     .point()
     .data({
       type: 'inline',
-      value: generateLabelData(),
+      value: getDataByType(),
     })
     .encode('x', 'index')
     .encode('y', 'value')
@@ -40,7 +58,14 @@ onMounted(() => {
       range: ['#7593ed', '#95e3b0', '#6c7893', '#e7c450', '#7460eb'],
     })
 
-  chart.render()
+  chart.value!.render()
+})
+
+watch(() => props.model, () => {
+  chart.value!.changeData({
+    type: 'inline',
+    value: getDataByType(),
+  })
 })
 </script>
 
