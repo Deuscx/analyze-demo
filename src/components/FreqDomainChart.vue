@@ -12,6 +12,10 @@ onMounted(() => {
   chart.value = new Chart({
     container: chartRef.value!,
     autoFit: true,
+    axis: {
+      x: { title: '频率' },
+      y: { title: '幅值' },
+    },
   })
   setValue()
 })

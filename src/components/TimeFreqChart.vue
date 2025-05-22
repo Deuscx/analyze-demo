@@ -48,7 +48,15 @@ watch(() => props.data, () => {
 </script>
 
 <template>
-  <canvas id="heatmap" ref="chartRef" />
+  <div class="chart-container relative">
+    <canvas id="heatmap" ref="chartRef" />
+    <div class="text-xs transform bottom--4 left-[50%] absolute">
+      时间
+    </div>
+    <div class="text-xs translate-y-[-50%] rotate-[-90deg] transform top-[50%] absolute -left-6">
+      频率
+    </div>
+  </div>
 </template>
 
 <style scoped>
